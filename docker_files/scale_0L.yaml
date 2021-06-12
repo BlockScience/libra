@@ -25,7 +25,7 @@ spec:
       labels:
         app: testnet
     spec:
-      terminationGracePeriodSeconds: 30
+      # terminationGracePeriodSeconds: 30
       containers:
       - name: fullnode
         image: '984706561510.dkr.ecr.us-east-2.amazonaws.com/0l_fullnode:latest'

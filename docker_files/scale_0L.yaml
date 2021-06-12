@@ -32,10 +32,10 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        readinessProbe:
-          tcpSocket:
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 10
+        # readinessProbe:
+        #   tcpSocket:
+        #     port: 5000
+        #   initialDelaySeconds: 5
+        #   periodSeconds: 10
         # command: ["libra-node"]
         # args: ["--config", "$HOME/.0L/fullnode.node.yaml"]

@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: testnet-service
+spec:
+  selector:
+    app: testnet
+  ports:
+  - protocol: "TCP"
+    port: 80
+    targetPort: 5000
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testnet-dep
+spec:
+  replicas: 5
+  selector:
+    matchLabels:
+      app: testnet
+  template:
+    metadata:
+      labels:
+        app: testnet
+    spec:
+      terminationGracePeriodSeconds: 30
+      containers:
+      - name: fullnode
+        image: '0l/fullnode:latest'
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 5000
+        readinessProbe:
+          tcpSocket:
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10

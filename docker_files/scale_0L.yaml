@@ -16,7 +16,7 @@ kind: Deployment
 metadata:
   name: testnet-dep
 spec:
-  replicas: 5
+  replicas: 1
   selector:
     matchLabels:
       app: testnet
@@ -28,8 +28,8 @@ spec:
       terminationGracePeriodSeconds: 30
       containers:
       - name: fullnode
-        image: '0l/fullnode:latest'
-        imagePullPolicy: Never
+        image: '984706561510.dkr.ecr.us-east-2.amazonaws.com/0l_fullnode:latest'
+        imagePullPolicy: Always
         ports:
         - containerPort: 5000
         readinessProbe:
@@ -37,3 +37,5 @@ spec:
             port: 5000
           initialDelaySeconds: 5
           periodSeconds: 10
+        command: ["libra-node"]
+        args: ["--config", "$HOME/.0L/fullnode.node.yaml"]

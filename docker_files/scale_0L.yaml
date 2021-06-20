@@ -1,22 +1,10 @@
-# apiVersion: v1
-# kind: Service
-# metadata:
-#   name: testnet-service
-# spec:
-#   selector:
-#     app: testnet
-#   ports:
-#   - protocol: "TCP"
-#     port: 80
-#     targetPort: 5000
-#   type: LoadBalancer
----
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testnet-dep
 spec:
-  replicas: 4
+  replicas: 1
   selector:
     matchLabels:
       app: testnet
@@ -31,10 +19,5 @@ spec:
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        readinessProbe:
-          tcpSocket:
-            port: 5000
-          initialDelaySeconds: 5
-          periodSeconds: 10
-        # command: ["libra-node"]
-        # args: ["--config", "$HOME/.0L/fullnode.node.yaml"]
+        command: ["libra-node"]
+        args: ["--config", "/root/.0L/fullnode.node.yaml"]

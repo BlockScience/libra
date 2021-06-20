@@ -18,6 +18,6 @@ RUN ~/.cargo/bin/cargo run -p stdlib --release
 RUN ~/.cargo/bin/cargo build -p libra-node -p miner -p backup-cli -p ol -p txs -p onboard --release
 
 RUN make install
-RUN $HOME/.cargo/bin/cargo run -p ol restore
+RUN ~/.cargo/bin/cargo run -p ol restore
 
-CMD ["libra-node", "--config", "$HOME/.0L/fullnode.node.yaml"]
+# CMD ["libra-node", "--config", "/root/.0L/fullnode.node.yaml"]

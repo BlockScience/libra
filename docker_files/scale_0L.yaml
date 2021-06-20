@@ -1,22 +1,22 @@
-apiVersion: v1
-kind: Service
-metadata:
-  name: testnet-service
-spec:
-  selector:
-    app: testnet
-  ports:
-  - protocol: "TCP"
-    port: 80
-    targetPort: 5000
-  type: LoadBalancer
+# apiVersion: v1
+# kind: Service
+# metadata:
+#   name: testnet-service
+# spec:
+#   selector:
+#     app: testnet
+#   ports:
+#   - protocol: "TCP"
+#     port: 80
+#     targetPort: 5000
+#   type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: testnet-dep
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: testnet
@@ -25,17 +25,16 @@ spec:
       labels:
         app: testnet
     spec:
-      # terminationGracePeriodSeconds: 30
       containers:
       - name: fullnode
         image: '984706561510.dkr.ecr.us-east-2.amazonaws.com/0l_fullnode:latest'
         imagePullPolicy: Always
         ports:
         - containerPort: 5000
-        # readinessProbe:
-        #   tcpSocket:
-        #     port: 5000
-        #   initialDelaySeconds: 5
-        #   periodSeconds: 10
+        readinessProbe:
+          tcpSocket:
+            port: 5000
+          initialDelaySeconds: 5
+          periodSeconds: 10
         # command: ["libra-node"]
         # args: ["--config", "$HOME/.0L/fullnode.node.yaml"]
